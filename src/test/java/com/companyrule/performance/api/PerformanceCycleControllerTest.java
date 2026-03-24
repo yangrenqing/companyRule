@@ -158,16 +158,21 @@ class PerformanceCycleControllerTest {
 
     @Test
     void planGenerationCreatesMinimalResultForExistingCycle() throws Exception {
-        String cycleId = createCycleAndReturnId();
+        JsonNode createdCycle = createCycleAndReturnBody();
+        String cycleId = createdCycle.get("id").asText();
 
-        mockMvc.perform(post("/api/performance/cycles/{id}/plans", cycleId))
+        MvcResult result = mockMvc.perform(post("/api/performance/cycles/{id}/plans", cycleId))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNotEmpty())
                 .andExpect(jsonPath("$.cycleId").value(cycleId))
                 .andExpect(jsonPath("$.status").value("GENERATED"))
                 .andExpect(jsonPath("$.generatedAt").isNotEmpty())
                 .andExpect(jsonPath("$.generationMode").value("SYNC_STUB"))
-                .andExpect(jsonPath("$.targetEmployeeCount").value(1));
+                .andExpect(jsonPath("$.targetEmployeeCount").value(1))
+                .andReturn();
+
+        JsonNode plan = objectMapper.readTree(result.getResponse().getContentAsString());
+        assertThat(plan.get("generatedAt").asText()).isGreaterThanOrEqualTo(createdCycle.get("createdAt").asText());
     }
 
     @Test

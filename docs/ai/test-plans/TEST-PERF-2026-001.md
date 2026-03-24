@@ -9,7 +9,7 @@ Adapted from `/Users/yangrenqing/ai-rd-team/examples/performance-module-test-pla
 - [ ] get cycle fails clearly for a missing cycle
 - [ ] create cycle rejects invalid request payloads (blank name, blank organizationId, missing required fields)
 - [ ] create cycle fails clearly for a missing organization
-- [ ] plan generation creates a minimal result for an existing cycle with `generatedAt` and minimal response fields
+- [ ] plan generation creates a minimal result for an existing cycle with `generatedAt`, minimal response fields, and non-regressing chronology from cycle creation
 - [ ] plan generation fails clearly for a missing cycle
 - [ ] service-layer repository seam preserves cycle readback after create with initial draft fields (`id`, `name`, `organizationId`, `status`, `createdAt`, `updatedAt`)
 - [ ] service-layer repository seam preserves plan generation from stored cycle with minimal generated fields (`id`, `cycleId`, `status`, `generatedAt`, `generationMode`, `targetEmployeeCount`) and non-regressing generation chronology
