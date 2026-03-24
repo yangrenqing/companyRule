@@ -44,7 +44,12 @@ class PerformanceCycleServiceTest {
         PerformanceCycle storedCycle = service.getCycle(cycle.id());
 
         assertThat(storedCycle).isEqualTo(cycle);
+        assertThat(storedCycle.id()).isNotBlank();
+        assertThat(storedCycle.name()).isEqualTo("2026 Mid-Year Review");
+        assertThat(storedCycle.organizationId()).isEqualTo("org-001");
         assertThat(storedCycle.status()).isEqualTo(PerformanceCycleStatus.DRAFT);
+        assertThat(storedCycle.createdAt()).isNotNull();
+        assertThat(storedCycle.updatedAt()).isEqualTo(storedCycle.createdAt());
     }
 
     @Test
