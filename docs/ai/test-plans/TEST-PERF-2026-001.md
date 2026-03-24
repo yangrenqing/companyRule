@@ -14,6 +14,10 @@ Adapted from `/Users/yangrenqing/ai-rd-team/examples/performance-module-test-pla
 - [ ] service-layer repository seam preserves cycle readback after create
 - [ ] service-layer repository seam preserves plan generation from stored cycle
 
+## Validation command when toolchain is ready
+- `mvn test`
+- Optional startup-path check: `mvn spring-boot:run`
+
 ## Pending validation blocker
 Local validation has not yet run because the machine currently has Java 1.8 and no Maven.
 

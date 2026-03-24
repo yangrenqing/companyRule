@@ -17,8 +17,9 @@ This is the adopted repo for the real implementation trial of the performance-mo
 ## Best next step
 1. Install JDK 17 and Maven locally.
 2. Run `mvn test`.
-3. Fix any compile/test issues.
-4. Continue replacing stubs with real persistence and upstream organization dependency handling.
+3. If startup-path validation is needed, run `mvn spring-boot:run` to exercise local H2 + Flyway wiring.
+4. Fix any compile/test issues.
+5. Continue replacing stubs with real persistence and upstream organization dependency handling.
 
 ## Important constraints
 - Keep this repo focused on the performance project spike.

@@ -80,8 +80,15 @@ src/
 - `examples/performance-module-test-plan.md`
 - `examples/performance-module-release-checklist.md`
 
+## 本地验证命令
+1. 确认 `java -version` 为 17.x
+2. 确认 `mvn -version` 可用
+3. 在仓库根目录运行 `mvn test`
+4. 如需单独验证 migration 启动路径，运行 `mvn spring-boot:run`
+
 ## 下一步
 1. 安装 JDK 17 与 Maven
 2. 跑通 `mvn test`
-3. 将计划生成入口从内存 stub 替换为真实 organization-service 读取与持久化逻辑
-4. 按 test plan 补齐权限、状态流转与失败路径测试
+3. 如需验证 migration 启动链路，执行 `mvn spring-boot:run`
+4. 将计划生成入口从内存 stub 替换为真实 organization-service 读取与持久化逻辑
+5. 按 test plan 补齐权限、状态流转与失败路径测试
