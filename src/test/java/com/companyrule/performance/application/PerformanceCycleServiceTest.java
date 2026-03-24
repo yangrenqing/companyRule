@@ -93,4 +93,11 @@ class PerformanceCycleServiceTest {
         assertThat(planRepository.findById(plan.id()))
                 .contains(plan);
     }
+
+    @Test
+    void generatePlanFailsClearlyWhenCycleMissing() {
+        assertThatThrownBy(() -> service.generatePlan("missing-cycle"))
+                .isInstanceOf(CycleNotFoundException.class)
+                .hasMessage("Performance cycle not found: missing-cycle");
+    }
 }
