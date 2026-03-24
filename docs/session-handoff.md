@@ -11,6 +11,7 @@ This is the adopted repo for the real implementation trial of the performance-mo
 - Implemented the first API slice for cycle create/read and minimal plan generation.
 - Added in-memory service logic, explicit repository boundaries, and a stub `organization-service` adapter boundary.
 - Added the first SQL migration file for performance-domain tables.
+- Added minimal H2 + Flyway local runtime wiring so migration validation is ready once JDK 17 and Maven are installed.
 - Added the first controller test suite for create/read/plan-generation behavior.
 
 ## Best next step
