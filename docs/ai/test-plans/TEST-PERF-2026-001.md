@@ -5,7 +5,7 @@ Adapted from `/Users/yangrenqing/ai-rd-team/examples/performance-module-test-pla
 
 ## First pass checks
 - [ ] create cycle returns draft status with core response fields (`id`, `name`, `organizationId`, `status`, `createdAt`, `updatedAt`)
-- [ ] get cycle returns the created entity with core response fields (`id`, `name`, `organizationId`, `status`, `createdAt`, `updatedAt`)
+- [ ] get cycle returns the created entity with core response fields (`id`, `name`, `organizationId`, `status`, `createdAt`, `updatedAt`) and preserves the initial timestamps from create
 - [ ] get cycle fails clearly for a missing cycle
 - [ ] create cycle rejects invalid request payloads (blank name, blank organizationId, missing required fields)
 - [ ] create cycle fails clearly for a missing organization

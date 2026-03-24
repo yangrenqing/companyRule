@@ -1,5 +1,6 @@
 package com.companyrule.performance.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -60,16 +61,22 @@ class PerformanceCycleControllerTest {
 
     @Test
     void getCycleReturnsCreatedEntity() throws Exception {
-        String cycleId = createCycleAndReturnId();
+        JsonNode createdCycle = createCycleAndReturnBody();
+        String cycleId = createdCycle.get("id").asText();
 
-        mockMvc.perform(get("/api/performance/cycles/{id}", cycleId))
+        MvcResult result = mockMvc.perform(get("/api/performance/cycles/{id}", cycleId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(cycleId))
                 .andExpect(jsonPath("$.name").value("2026 Mid-Year Review"))
                 .andExpect(jsonPath("$.organizationId").value("org-001"))
                 .andExpect(jsonPath("$.status").value("DRAFT"))
                 .andExpect(jsonPath("$.createdAt").isNotEmpty())
-                .andExpect(jsonPath("$.updatedAt").isNotEmpty());
+                .andExpect(jsonPath("$.updatedAt").isNotEmpty())
+                .andReturn();
+
+        JsonNode readbackCycle = objectMapper.readTree(result.getResponse().getContentAsString());
+        assertThat(readbackCycle.get("createdAt").asText()).isEqualTo(createdCycle.get("createdAt").asText());
+        assertThat(readbackCycle.get("updatedAt").asText()).isEqualTo(createdCycle.get("updatedAt").asText());
     }
 
     @Test
@@ -171,6 +178,10 @@ class PerformanceCycleControllerTest {
     }
 
     private String createCycleAndReturnId() throws Exception {
+        return createCycleAndReturnBody().get("id").asText();
+    }
+
+    private JsonNode createCycleAndReturnBody() throws Exception {
         MvcResult result = mockMvc.perform(post("/api/performance/cycles")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -182,7 +193,6 @@ class PerformanceCycleControllerTest {
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        JsonNode body = objectMapper.readTree(result.getResponse().getContentAsString());
-        return body.get("id").asText();
+        return objectMapper.readTree(result.getResponse().getContentAsString());
     }
 }
