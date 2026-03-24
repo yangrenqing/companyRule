@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -42,9 +43,19 @@ public class PerformanceExceptionHandler {
                 "Unsupported content type: " + unsupportedMediaType(ex));
     }
 
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<Map<String, Object>> handleMethodNotAllowed(HttpRequestMethodNotSupportedException ex) {
+        return build(HttpStatus.METHOD_NOT_ALLOWED,
+                "Method not allowed: " + unsupportedMethod(ex));
+    }
+
     private String unsupportedMediaType(HttpMediaTypeNotSupportedException ex) {
         MediaType contentType = ex.getContentType();
         return contentType == null ? "unknown" : contentType.toString();
+    }
+
+    private String unsupportedMethod(HttpRequestMethodNotSupportedException ex) {
+        return ex.getMethod();
     }
 
     private ResponseEntity<Map<String, Object>> build(HttpStatus status, String message) {
