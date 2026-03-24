@@ -62,7 +62,10 @@ class PerformanceCycleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(cycleId))
                 .andExpect(jsonPath("$.name").value("2026 Mid-Year Review"))
-                .andExpect(jsonPath("$.organizationId").value("org-001"));
+                .andExpect(jsonPath("$.organizationId").value("org-001"))
+                .andExpect(jsonPath("$.status").value("DRAFT"))
+                .andExpect(jsonPath("$.createdAt").isNotEmpty())
+                .andExpect(jsonPath("$.updatedAt").isNotEmpty());
     }
 
     @Test
@@ -138,6 +141,7 @@ class PerformanceCycleControllerTest {
                 .andExpect(jsonPath("$.id").isNotEmpty())
                 .andExpect(jsonPath("$.cycleId").value(cycleId))
                 .andExpect(jsonPath("$.status").value("GENERATED"))
+                .andExpect(jsonPath("$.generatedAt").isNotEmpty())
                 .andExpect(jsonPath("$.generationMode").value("SYNC_STUB"))
                 .andExpect(jsonPath("$.targetEmployeeCount").value(1));
     }
