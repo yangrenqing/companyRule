@@ -87,6 +87,33 @@ class PerformanceCycleControllerTest {
     }
 
     @Test
+    void createCycleFailsValidationForBlankOrganizationId() throws Exception {
+        mockMvc.perform(post("/api/performance/cycles")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "name": "2026 Mid-Year Review",
+                                  "organizationId": " "
+                                }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Request validation failed"));
+    }
+
+    @Test
+    void createCycleFailsValidationForMissingNameField() throws Exception {
+        mockMvc.perform(post("/api/performance/cycles")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "organizationId": "org-001"
+                                }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Request validation failed"));
+    }
+
+    @Test
     void createCycleFailsClearlyForMissingOrganization() throws Exception {
         when(organizationGateway.organizationExists("missing-org")).thenReturn(false);
 
