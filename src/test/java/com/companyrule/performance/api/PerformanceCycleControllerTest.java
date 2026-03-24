@@ -87,6 +87,9 @@ class PerformanceCycleControllerTest {
     void getCycleFailsClearlyForMissingCycle() throws Exception {
         mockMvc.perform(get("/api/performance/cycles/{id}", "missing-cycle"))
                 .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.status").value(404))
+                .andExpect(jsonPath("$.error").value("Not Found"))
+                .andExpect(jsonPath("$.timestamp").isNotEmpty())
                 .andExpect(jsonPath("$.message").value("Performance cycle not found: missing-cycle"));
     }
 

@@ -12,7 +12,7 @@ This is the adopted repo for the real implementation trial of the performance-mo
 - Added in-memory service logic, explicit repository boundaries, and a stub `organization-service` adapter boundary.
 - Added the first SQL migration file for performance-domain tables.
 - Added minimal H2 + Flyway local runtime wiring so migration validation is ready once JDK 17 and Maven are installed.
-- Added the first controller test suite for create/read/plan-generation behavior, including initial timestamp alignment in the create response, initial timestamp consistency across cycle create/readback, non-regressing plan-generation chronology, missing-entity failures, and request-validation coverage for blank or missing required fields.
+- Added the first controller test suite for create/read/plan-generation behavior, including initial timestamp alignment in the create response, initial timestamp consistency across cycle create/readback, non-regressing plan-generation chronology, the standard 404 error payload for a missing cycle, and request-validation coverage for blank or missing required fields.
 - Extended the in-memory repository seam coverage with minimal readback support, initial draft-field assertions for cycle create/readback, key generated-field preservation on plan readback, a plan-generation timestamp chronology check, and the missing-cycle failure path for plan generation.
 
 ## Best next step
