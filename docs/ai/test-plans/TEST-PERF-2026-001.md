@@ -13,6 +13,7 @@ Adapted from `/Users/yangrenqing/ai-rd-team/examples/performance-module-test-pla
 - [ ] plan generation fails clearly for a missing cycle
 - [ ] service-layer repository seam preserves cycle readback after create
 - [ ] service-layer repository seam preserves plan generation from stored cycle
+- [ ] service-layer plan repository seam preserves plan readback after generation
 
 ## Validation command when toolchain is ready
 - `mvn test`
