@@ -99,7 +99,14 @@ class PerformanceCycleServiceTest {
         PerformancePlan plan = service.generatePlan(cycle.id());
 
         assertThat(planRepository.findById(plan.id()))
-                .contains(plan);
+                .hasValueSatisfying(storedPlan -> {
+                    assertThat(storedPlan.id()).isEqualTo(plan.id());
+                    assertThat(storedPlan.cycleId()).isEqualTo(cycle.id());
+                    assertThat(storedPlan.status()).isEqualTo(PerformancePlanStatus.GENERATED);
+                    assertThat(storedPlan.generatedAt()).isEqualTo(plan.generatedAt());
+                    assertThat(storedPlan.generationMode()).isEqualTo("SYNC_STUB");
+                    assertThat(storedPlan.targetEmployeeCount()).isEqualTo(7);
+                });
     }
 
     @Test
