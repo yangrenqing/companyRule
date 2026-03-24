@@ -12,7 +12,7 @@ Adapted from `/Users/yangrenqing/ai-rd-team/examples/performance-module-test-pla
 - [ ] plan generation creates a minimal result for an existing cycle with `generatedAt` and minimal response fields
 - [ ] plan generation fails clearly for a missing cycle
 - [ ] service-layer repository seam preserves cycle readback after create with initial draft fields (`id`, `name`, `organizationId`, `status`, `createdAt`, `updatedAt`)
-- [ ] service-layer repository seam preserves plan generation from stored cycle
+- [ ] service-layer repository seam preserves plan generation from stored cycle with minimal generated fields (`id`, `cycleId`, `status`, `generatedAt`, `generationMode`, `targetEmployeeCount`)
 - [ ] service-layer plan repository seam preserves plan readback after generation
 - [ ] service-layer plan generation fails clearly for a missing cycle
 
