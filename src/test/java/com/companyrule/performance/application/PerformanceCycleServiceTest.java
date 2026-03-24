@@ -84,6 +84,7 @@ class PerformanceCycleServiceTest {
         assertThat(plan.cycleId()).isEqualTo(cycle.id());
         assertThat(plan.status()).isEqualTo(PerformancePlanStatus.GENERATED);
         assertThat(plan.generatedAt()).isNotNull();
+        assertThat(plan.generatedAt()).isAfterOrEqualTo(cycle.createdAt());
         assertThat(plan.generationMode()).isEqualTo("SYNC_STUB");
         assertThat(plan.targetEmployeeCount()).isEqualTo(7);
     }
