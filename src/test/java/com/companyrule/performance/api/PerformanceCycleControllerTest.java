@@ -242,6 +242,18 @@ class PerformanceCycleControllerTest {
     }
 
     @Test
+    void createCycleFailsValidationForEmptyJsonObject() throws Exception {
+        mockMvc.perform(post("/api/performance/cycles")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.error").value("Bad Request"))
+                .andExpect(jsonPath("$.timestamp").isNotEmpty())
+                .andExpect(jsonPath("$.message").value("Request validation failed"));
+    }
+
+    @Test
     void planGenerationCreatesMinimalResultForExistingCycle() throws Exception {
         JsonNode createdCycle = createCycleAndReturnBody();
         String cycleId = createdCycle.get("id").asText();

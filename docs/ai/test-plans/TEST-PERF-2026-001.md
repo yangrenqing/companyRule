@@ -7,7 +7,7 @@ Adapted from `/Users/yangrenqing/ai-rd-team/examples/performance-module-test-pla
 - [ ] create cycle returns draft status with core response fields (`id`, `name`, `organizationId`, `status`, `createdAt`, `updatedAt`) and starts with aligned initial timestamps
 - [ ] get cycle returns the created entity with core response fields (`id`, `name`, `organizationId`, `status`, `createdAt`, `updatedAt`) and preserves the initial timestamps from create
 - [ ] get cycle fails clearly for a missing cycle with the standard 404 error payload (`timestamp`, `status`, `error`, `message`)
-- [ ] create cycle rejects invalid request payloads (blank name, blank organizationId, null required fields, missing required fields, malformed JSON, empty body) with the standard 400 error payload (`timestamp`, `status`, `error`, `message`)
+- [ ] create cycle rejects invalid request payloads (blank name, blank organizationId, null required fields, missing required fields, malformed JSON, empty body, empty JSON object) with the standard 400 error payload (`timestamp`, `status`, `error`, `message`)
 - [ ] create cycle fails clearly for a missing organization with the standard 400 error payload (`timestamp`, `status`, `error`, `message`)
 - [ ] plan generation creates a minimal result for an existing cycle with `generatedAt`, minimal response fields, non-regressing chronology from cycle creation, and no unintended mutation of the stored cycle timestamps or draft status
 - [ ] plan generation fails clearly for a missing cycle with the standard 404 error payload (`timestamp`, `status`, `error`, `message`)
