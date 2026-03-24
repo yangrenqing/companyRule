@@ -57,7 +57,7 @@ src/
 - 首个 migration 文件已创建：`src/main/resources/db/migration/V1__create_performance_tables.sql`
 - 本地 runtime 已补齐最小 H2 + Flyway 配置：`src/main/resources/application.properties`
 - 首批接口测试已创建：`src/test/java/com/companyrule/performance/api/PerformanceCycleControllerTest.java`，当前已覆盖 create/get/plan-generation 主路径、缺失实体失败，以及 cycle create 的必填/空白字段校验
-- 服务层仓储边界测试已创建：`src/test/java/com/companyrule/performance/application/PerformanceCycleServiceTest.java`，当前已覆盖 cycle readback 的初始 draft 字段、plan readback、plan generation timestamp chronology，以及缺失 cycle 时的 plan-generation failure path
+- 服务层仓储边界测试已创建：`src/test/java/com/companyrule/performance/application/PerformanceCycleServiceTest.java`，当前已覆盖 cycle readback 的初始 draft 字段、plan readback 的关键生成字段保留、plan generation timestamp chronology，以及缺失 cycle 时的 plan-generation failure path
 - 当前实现保持 in-memory first，cycle 创建后返回 `DRAFT`，plan 生成返回最小 `GENERATED` 结果
 - `PerformancePlanRepository` 已具备最小 readback seam，便于后续替换为真实持久化实现前先验证 plan 存储边界
 - 当前 migration 已具备在本地内存库启动时执行的最小依赖前提
