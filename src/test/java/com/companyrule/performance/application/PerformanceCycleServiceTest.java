@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 class PerformanceCycleServiceTest {
 
     private OrganizationGateway organizationGateway;
+    private InMemoryPerformancePlanRepository planRepository;
     private PerformanceCycleService service;
 
     @BeforeEach
@@ -25,9 +26,10 @@ class PerformanceCycleServiceTest {
         organizationGateway = mock(OrganizationGateway.class);
         when(organizationGateway.organizationExists("org-001")).thenReturn(true);
         when(organizationGateway.estimateTargetEmployeeCount("org-001")).thenReturn(7);
+        planRepository = new InMemoryPerformancePlanRepository();
         service = new PerformanceCycleService(
                 new InMemoryPerformanceCycleRepository(),
-                new InMemoryPerformancePlanRepository(),
+                planRepository,
                 organizationGateway
         );
     }
@@ -77,5 +79,18 @@ class PerformanceCycleServiceTest {
         assertThat(plan.status()).isEqualTo(PerformancePlanStatus.GENERATED);
         assertThat(plan.generationMode()).isEqualTo("SYNC_STUB");
         assertThat(plan.targetEmployeeCount()).isEqualTo(7);
+    }
+
+    @Test
+    void generatedPlanCanBeReadBackThroughPlanRepositoryBoundary() {
+        PerformanceCycle cycle = service.createCycle(new CreatePerformanceCycleRequest(
+                "2026 Mid-Year Review",
+                "org-001"
+        ));
+
+        PerformancePlan plan = service.generatePlan(cycle.id());
+
+        assertThat(planRepository.findById(plan.id()))
+                .contains(plan);
     }
 }

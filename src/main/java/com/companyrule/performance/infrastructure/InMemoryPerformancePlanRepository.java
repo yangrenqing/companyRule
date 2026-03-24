@@ -3,6 +3,7 @@ package com.companyrule.performance.infrastructure;
 import com.companyrule.performance.application.PerformancePlanRepository;
 import com.companyrule.performance.domain.PerformancePlan;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,10 @@ public class InMemoryPerformancePlanRepository implements PerformancePlanReposit
     public PerformancePlan save(PerformancePlan plan) {
         plans.put(plan.id(), plan);
         return plan;
+    }
+
+    @Override
+    public Optional<PerformancePlan> findById(String planId) {
+        return Optional.ofNullable(plans.get(planId));
     }
 }
