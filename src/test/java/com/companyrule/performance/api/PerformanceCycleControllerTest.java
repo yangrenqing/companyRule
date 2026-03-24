@@ -288,6 +288,23 @@ class PerformanceCycleControllerTest {
     }
 
     @Test
+    void createCycleFailsClearlyForUnsupportedContentType() throws Exception {
+        mockMvc.perform(post("/api/performance/cycles")
+                        .contentType(MediaType.TEXT_PLAIN)
+                        .content("""
+                                {
+                                  "name": "2026 Mid-Year Review",
+                                  "organizationId": "org-001"
+                                }
+                                """))
+                .andExpect(status().isUnsupportedMediaType())
+                .andExpect(jsonPath("$.status").value(415))
+                .andExpect(jsonPath("$.error").value("Unsupported Media Type"))
+                .andExpect(jsonPath("$.timestamp").isNotEmpty())
+                .andExpect(jsonPath("$.message").value("Unsupported content type: text/plain"));
+    }
+
+    @Test
     void planGenerationCreatesMinimalResultForExistingCycle() throws Exception {
         JsonNode createdCycle = createCycleAndReturnBody();
         String cycleId = createdCycle.get("id").asText();
