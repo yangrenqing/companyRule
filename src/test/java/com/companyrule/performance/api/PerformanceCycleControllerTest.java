@@ -42,7 +42,7 @@ class PerformanceCycleControllerTest {
 
     @Test
     void createCycleReturnsDraftStatus() throws Exception {
-        mockMvc.perform(post("/api/performance/cycles")
+        MvcResult result = mockMvc.perform(post("/api/performance/cycles")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -56,7 +56,11 @@ class PerformanceCycleControllerTest {
                 .andExpect(jsonPath("$.organizationId").value("org-001"))
                 .andExpect(jsonPath("$.status").value("DRAFT"))
                 .andExpect(jsonPath("$.createdAt").isNotEmpty())
-                .andExpect(jsonPath("$.updatedAt").isNotEmpty());
+                .andExpect(jsonPath("$.updatedAt").isNotEmpty())
+                .andReturn();
+
+        JsonNode createdCycle = objectMapper.readTree(result.getResponse().getContentAsString());
+        assertThat(createdCycle.get("createdAt").asText()).isEqualTo(createdCycle.get("updatedAt").asText());
     }
 
     @Test
