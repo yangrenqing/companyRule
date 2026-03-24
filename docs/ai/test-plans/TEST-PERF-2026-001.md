@@ -7,6 +7,7 @@ Adapted from `/Users/yangrenqing/ai-rd-team/examples/performance-module-test-pla
 - [ ] create cycle returns draft status with core response fields (`id`, `name`, `organizationId`, `status`, `createdAt`, `updatedAt`) and starts with aligned initial timestamps
 - [ ] get cycle returns the created entity with core response fields (`id`, `name`, `organizationId`, `status`, `createdAt`, `updatedAt`) and preserves the initial timestamps from create
 - [ ] get cycle fails clearly for a missing cycle with the standard 404 error payload (`timestamp`, `status`, `error`, `message`)
+- [ ] get cycle rejects unsupported `Accept` headers such as `application/xml` with the standard 406 error payload (`timestamp`, `status`, `error`, `message`)
 - [ ] create cycle rejects invalid request payloads (blank name, blank organizationId, null required fields, missing required fields, malformed JSON, empty body, empty JSON object, numeric values for required string fields) with the standard 400 error payload (`timestamp`, `status`, `error`, `message`)
 - [ ] create cycle rejects unsupported content types such as `text/plain` with the standard 415 error payload (`timestamp`, `status`, `error`, `message`)
 - [ ] create cycle rejects unsupported HTTP methods such as `PUT` with the standard 405 error payload (`timestamp`, `status`, `error`, `message`)

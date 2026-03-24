@@ -95,6 +95,19 @@ class PerformanceCycleControllerTest {
     }
 
     @Test
+    void getCycleFailsClearlyForUnsupportedAcceptType() throws Exception {
+        String cycleId = createCycleAndReturnId();
+
+        mockMvc.perform(get("/api/performance/cycles/{id}", cycleId)
+                        .accept(MediaType.APPLICATION_XML))
+                .andExpect(status().isNotAcceptable())
+                .andExpect(jsonPath("$.status").value(406))
+                .andExpect(jsonPath("$.error").value("Not Acceptable"))
+                .andExpect(jsonPath("$.timestamp").isNotEmpty())
+                .andExpect(jsonPath("$.message").value("Unsupported accept type: application/xml"));
+    }
+
+    @Test
     void createCycleFailsValidationForBlankName() throws Exception {
         mockMvc.perform(post("/api/performance/cycles")
                         .contentType(MediaType.APPLICATION_JSON)
