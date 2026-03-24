@@ -2,12 +2,14 @@ package com.companyrule.performance.api;
 
 import com.companyrule.performance.application.CycleNotFoundException;
 import com.companyrule.performance.application.OrganizationNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import java.time.Instant;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -49,6 +51,13 @@ public class PerformanceExceptionHandler {
                 "Method not allowed: " + unsupportedMethod(ex));
     }
 
+    @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
+    public ResponseEntity<Map<String, Object>> handleNotAcceptable(HttpMediaTypeNotAcceptableException ex,
+                                                                   HttpServletRequest request) {
+        return build(HttpStatus.NOT_ACCEPTABLE,
+                "Unsupported accept type: " + requestedMediaType(request));
+    }
+
     private String unsupportedMediaType(HttpMediaTypeNotSupportedException ex) {
         MediaType contentType = ex.getContentType();
         return contentType == null ? "unknown" : contentType.toString();
@@ -56,6 +65,11 @@ public class PerformanceExceptionHandler {
 
     private String unsupportedMethod(HttpRequestMethodNotSupportedException ex) {
         return ex.getMethod();
+    }
+
+    private String requestedMediaType(HttpServletRequest request) {
+        String accept = request.getHeader("Accept");
+        return accept == null || accept.isBlank() ? "unknown" : accept;
     }
 
     private ResponseEntity<Map<String, Object>> build(HttpStatus status, String message) {
