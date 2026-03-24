@@ -104,6 +104,9 @@ class PerformanceCycleControllerTest {
                                 }
                                 """))
                 .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.error").value("Bad Request"))
+                .andExpect(jsonPath("$.timestamp").isNotEmpty())
                 .andExpect(jsonPath("$.message").value("Request validation failed"));
     }
 
@@ -160,6 +163,9 @@ class PerformanceCycleControllerTest {
                                 }
                                 """))
                 .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.error").value("Bad Request"))
+                .andExpect(jsonPath("$.timestamp").isNotEmpty())
                 .andExpect(jsonPath("$.message").value("Organization not found: missing-org"));
     }
 
@@ -186,6 +192,9 @@ class PerformanceCycleControllerTest {
     void planGenerationFailsClearlyForMissingCycle() throws Exception {
         mockMvc.perform(post("/api/performance/cycles/{id}/plans", "missing-cycle"))
                 .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.status").value(404))
+                .andExpect(jsonPath("$.error").value("Not Found"))
+                .andExpect(jsonPath("$.timestamp").isNotEmpty())
                 .andExpect(jsonPath("$.message").value("Performance cycle not found: missing-cycle"));
     }
 
