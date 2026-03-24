@@ -9,7 +9,7 @@ Adapted from `/Users/yangrenqing/ai-rd-team/examples/performance-module-test-pla
 - [ ] get cycle fails clearly for a missing cycle with the standard 404 error payload (`timestamp`, `status`, `error`, `message`)
 - [ ] create cycle rejects invalid request payloads (blank name, blank organizationId, missing required fields) with the standard 400 error payload (`timestamp`, `status`, `error`, `message`)
 - [ ] create cycle fails clearly for a missing organization with the standard 400 error payload (`timestamp`, `status`, `error`, `message`)
-- [ ] plan generation creates a minimal result for an existing cycle with `generatedAt`, minimal response fields, and non-regressing chronology from cycle creation
+- [ ] plan generation creates a minimal result for an existing cycle with `generatedAt`, minimal response fields, non-regressing chronology from cycle creation, and no unintended mutation of the stored cycle timestamps or draft status
 - [ ] plan generation fails clearly for a missing cycle with the standard 404 error payload (`timestamp`, `status`, `error`, `message`)
 - [ ] service-layer repository seam preserves cycle readback after create with initial draft fields (`id`, `name`, `organizationId`, `status`, `createdAt`, `updatedAt`)
 - [ ] service-layer repository seam preserves plan generation from stored cycle with minimal generated fields (`id`, `cycleId`, `status`, `generatedAt`, `generationMode`, `targetEmployeeCount`) and non-regressing generation chronology

@@ -186,6 +186,16 @@ class PerformanceCycleControllerTest {
 
         JsonNode plan = objectMapper.readTree(result.getResponse().getContentAsString());
         assertThat(plan.get("generatedAt").asText()).isGreaterThanOrEqualTo(createdCycle.get("createdAt").asText());
+
+        MvcResult cycleReadbackResult = mockMvc.perform(get("/api/performance/cycles/{id}", cycleId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(cycleId))
+                .andExpect(jsonPath("$.status").value("DRAFT"))
+                .andReturn();
+
+        JsonNode readbackCycle = objectMapper.readTree(cycleReadbackResult.getResponse().getContentAsString());
+        assertThat(readbackCycle.get("createdAt").asText()).isEqualTo(createdCycle.get("createdAt").asText());
+        assertThat(readbackCycle.get("updatedAt").asText()).isEqualTo(createdCycle.get("updatedAt").asText());
     }
 
     @Test
