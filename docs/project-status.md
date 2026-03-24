@@ -26,7 +26,7 @@
 - First SQL migration file added at `src/main/resources/db/migration/V1__create_performance_tables.sql`.
 - Minimal local H2 + Flyway runtime wiring added in `pom.xml` and `src/main/resources/application.properties` so migration execution is ready once the toolchain is available.
 - First controller test suite added at `src/test/java/com/companyrule/performance/api/PerformanceCycleControllerTest.java`, including create/get/plan-generation paths, missing-entity failures, and request-validation coverage for blank or missing required fields.
-- Service-layer repository seam tests added at `src/test/java/com/companyrule/performance/application/PerformanceCycleServiceTest.java`, including plan readback through `PerformancePlanRepository` and a missing-cycle failure check for plan generation.
+- Service-layer repository seam tests added at `src/test/java/com/companyrule/performance/application/PerformanceCycleServiceTest.java`, including cycle readback assertions for the initial draft fields, plan readback through `PerformancePlanRepository`, and a missing-cycle failure check for plan generation.
 
 ### Current vertical slice boundary
 - Create performance cycle

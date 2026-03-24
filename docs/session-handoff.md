@@ -13,7 +13,7 @@ This is the adopted repo for the real implementation trial of the performance-mo
 - Added the first SQL migration file for performance-domain tables.
 - Added minimal H2 + Flyway local runtime wiring so migration validation is ready once JDK 17 and Maven are installed.
 - Added the first controller test suite for create/read/plan-generation behavior, including missing-entity failures and request-validation coverage for blank or missing required fields.
-- Extended the in-memory plan repository seam with minimal readback support and service-level coverage, including the missing-cycle failure path for plan generation.
+- Extended the in-memory repository seam coverage with minimal readback support, initial draft-field assertions for cycle create/readback, and the missing-cycle failure path for plan generation.
 
 ## Best next step
 1. Install JDK 17 and Maven locally.
